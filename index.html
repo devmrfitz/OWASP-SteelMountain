@@ -1,0 +1,72 @@
+<html>
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/@biconomy/mexa@latest/dist/mexa.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>	
+    <title>Super Secure page</title>
+</head>
+<body>
+<h1>Super Secure page</h1>
+<button onclick="call()">Claim</button>
+
+<script type="text/javascript">
+	String.prototype.hashCode = function() {
+		var hash = 5381, i = this.length
+		while(i)
+			hash = (hash * 33) ^ this.charCodeAt(--i)
+		return hash >>> 0;
+	}
+	
+	function call() {
+		var username = prompt("Enter your username");
+		var password = prompt("Enter your password");
+		if ((username+password).hashCode() === 2723899193){
+			const teamId = prompt("Welcome Elliot! Your OWASPToken is now being minted! Enter your team ID and then wait for 15 seconds");
+			run(password, teamId);
+		}
+		else
+			alert("Wrong username or password");
+	}
+	
+	
+
+    const CONTRACT_ADDRESS = "0xb79c1d76FF5d969Ac8d8A5e6443D3BccDBaFcEFC";
+    const ABI = [
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "teamId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "pass",
+				"type": "string"
+			}
+		],
+		"name": "safeMint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	];	
+	async function run(password, teamId) {
+		const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+		const account = accounts[0];
+		const biconomy = await (new Biconomy(window.ethereum, {apiKey: "t1DYk3hvb.af9d6bc0-bc8f-41f4-a72a-540e90c8a425",
+		contractAddresses: [CONTRACT_ADDRESS]}));	
+		// sleep for 5 sec
+		await new Promise(r => setTimeout(r, 9000));
+		const web3 = await (new Web3(biconomy));
+		const contract = await (new web3.eth.Contract(ABI, CONTRACT_ADDRESS));
+
+		
+		await contract.methods.safeMint(teamId, account, password).send({from: account}).then(console.log);	
+	}
+</script></body>
+</html>
