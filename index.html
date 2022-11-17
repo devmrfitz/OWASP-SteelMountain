@@ -30,7 +30,7 @@
 	
 
     const CONTRACT_ADDRESS = "0x2Bf62A26f607DF973b1075a22671018E03507eA0";
-	const CHAIN_ID = '0x13881';
+	const CHAIN_ID = '0x89';
     const ABI = [
 	{
 		"inputs": [
@@ -86,7 +86,7 @@
 			params: [{ chainId: CHAIN_ID }],
 		});		
 		const account = accounts[0];
-		const biconomy = await (new Biconomy(window.ethereum, {apiKey: "t1DYk3hvb.af9d6bc0-bc8f-41f4-a72a-540e90c8a425",
+		const biconomy = await (new Biconomy(window.ethereum, {apiKey: "lQI3XRG2l.4893fa6b-572c-45b7-a177-326033f7526d",
 		contractAddresses: [CONTRACT_ADDRESS]}));
 		window.alert("Please wait...");
 		// sleep for 5 sec
